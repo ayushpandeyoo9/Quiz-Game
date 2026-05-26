@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quizz — ∆𝚢𝚞𝚜𝚑 𝚙∆𝚗𝚍𝚎𝚢</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Canvas for Cursor Effect -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- ===== MAIN APP WRAPPER ===== -->
+  <div id="app">
+
+    <!-- HEADER -->
+    <header id="appHeader">
+      <div class="header-inner">
+        <div class="header-left"></div>
+        <h1 id="appTitle" class="app-title">
+          <span class="qletter">Q</span><span class="qletter">u</span><span class="qletter">i</span><span class="qletter">z</span><span class="qletter">z</span>
+        </h1>
+        <div class="header-right">
+          <span class="author-name" id="authorName">
+            <span class="aletter">∆</span><span class="aletter">𝚢</span><span class="aletter">𝚞</span><span class="aletter">𝚜</span><span class="aletter">𝚑</span><span class="aletter aspace">&nbsp;</span><span class="aletter">𝚙</span><span class="aletter">∆</span><span class="aletter">𝚗</span><span class="aletter">𝚍</span><span class="aletter">𝚎</span><span class="aletter">𝚢</span>
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== SCREEN 1: LANGUAGE SELECTION ===== -->
+    <section id="langScreen" class="screen active">
+      <div class="screen-card">
+        <h2 class="screen-title" id="langTitle">🌐 Choose Your Language</h2>
+        <p class="screen-subtitle" id="langSub">Select the language you want to play in</p>
+        <div class="lang-grid" id="langGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 2: TOPIC SELECTION ===== -->
+    <section id="topicScreen" class="screen">
+      <div class="screen-card wide">
+        <h2 class="screen-title" id="topicTitle">📚 Select a Topic</h2>
+        <p class="screen-subtitle" id="topicSubtitle">Choose a category to begin your quiz</p>
+        <div class="topic-grid" id="topicGrid"></div>
+        <button class="back-btn" id="topicBackBtn">← Back</button>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 3: DIFFICULTY SELECTION ===== -->
+    <section id="diffScreen" class="screen">
+      <div class="screen-card">
+        <h2 class="screen-title" id="diffTitle">⚡ Select Difficulty</h2>
+        <p class="screen-subtitle" id="diffSub">How challenging do you want it?</p>
+        <div class="diff-grid">
+          <button class="diff-btn easy-btn" data-diff="easy">
+            <span class="diff-icon">🌱</span>
+            <span class="diff-label" id="easyLabel">Easy</span>
+            <span class="diff-count" id="easyCount">15 Questions</span>
+          </button>
+          <button class="diff-btn medium-btn" data-diff="medium">
+            <span class="diff-icon">🔥</span>
+            <span class="diff-label" id="mediumLabel">Medium</span>
+            <span class="diff-count" id="mediumCount">10 or 15 Questions</span>
+          </button>
+          <button class="diff-btn hard-btn" data-diff="hard">
+            <span class="diff-icon">💀</span>
+            <span class="diff-label" id="hardLabel">Hard</span>
+            <span class="diff-count" id="hardCount">5 / 10 / 15 / 20 Questions</span>
+          </button>
+        </div>
+        <button class="back-btn" id="diffBackBtn">← Back</button>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 4: QUESTION COUNT SELECTION ===== -->
+    <section id="countScreen" class="screen">
+      <div class="screen-card">
+        <h2 class="screen-title" id="countTitle">🔢 How Many Questions?</h2>
+        <p class="screen-subtitle" id="countSub">Select the number of questions</p>
+        <div class="count-grid" id="countGrid"></div>
+        <button class="back-btn" id="countBackBtn">← Back</button>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 5: TIMER OPTION ===== -->
+    <section id="timerScreen" class="screen">
+      <div class="screen-card">
+        <h2 class="screen-title" id="timerTitle">⏱️ Timer Option</h2>
+        <p class="screen-subtitle" id="timerSub">Do you want a countdown timer?</p>
+        <div class="timer-options">
+          <button class="timer-btn" data-timer="yes">
+            <span class="timer-icon">⏰</span>
+            <span class="timer-label" id="timerYesLabel">With Timer</span>
+            <span class="timer-desc" id="timerYesDesc">15 seconds per question</span>
+          </button>
+          <button class="timer-btn" data-timer="no">
+            <span class="timer-icon">♾️</span>
+            <span class="timer-label" id="timerNoLabel">No Timer</span>
+            <span class="timer-desc" id="timerNoDesc">Take your time</span>
+          </button>
+        </div>
+        <button class="back-btn" id="timerBackBtn">← Back</button>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 5b: TIMER DURATION SELECTION ===== -->
+    <section id="timerDurScreen" class="screen">
+      <div class="screen-card">
+        <h2 class="screen-title" id="timerDurTitle">⏳ Time Per Question</h2>
+        <p class="screen-subtitle" id="timerDurSub">How much time for each question?</p>
+        <div class="count-grid" id="timerDurGrid">
+          <button class="count-btn dur-btn" data-sec="15">
+            <span class="dur-val">15</span>
+            <span class="dur-unit" id="durSec">sec</span>
+          </button>
+          <button class="count-btn dur-btn" data-sec="30">
+            <span class="dur-val">30</span>
+            <span class="dur-unit" id="durSec2">sec</span>
+          </button>
+          <button class="count-btn dur-btn" data-sec="60">
+            <span class="dur-val">1</span>
+            <span class="dur-unit" id="durMin">min</span>
+          </button>
+          <button class="count-btn dur-btn" data-sec="90">
+            <span class="dur-val">1.5</span>
+            <span class="dur-unit" id="durMin2">min</span>
+          </button>
+          <button class="count-btn dur-btn" data-sec="120">
+            <span class="dur-val">2</span>
+            <span class="dur-unit" id="durMin3">min</span>
+          </button>
+        </div>
+        <button class="back-btn" id="timerDurBackBtn">← Back</button>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 6: QUIZ SCREEN ===== -->
+    <section id="quizScreen" class="screen">
+      <div class="quiz-container">
+
+        <!-- Quiz Top Bar -->
+        <div class="quiz-topbar">
+          <div class="quiz-meta">
+            <span class="topic-badge" id="topicBadge">HTML</span>
+            <span class="diff-badge" id="diffBadge">Easy</span>
+          </div>
+          <div class="quiz-progress-text" id="progressText">Question 1 of 15</div>
+          <div class="quiz-score-live" id="liveScore">Score: 0</div>
+          <button class="pause-btn" id="pauseBtn">⏸ Pause</button>
+          <button class="stop-btn" id="stopBtn">⏹ Stop</button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- Timer Bar -->
+        <div class="timer-wrap hidden" id="timerWrap">
+          <div class="timer-bar" id="timerBar"></div>
+          <span class="timer-count" id="timerCount">15</span>
+        </div>
+
+        <!-- Question Card -->
+        <div class="question-card" id="questionCard">
+          <p class="question-number" id="questionNumber">Q1.</p>
+          <p class="question-text" id="questionText">Loading question...</p>
+        </div>
+
+        <!-- Options Grid -->
+        <div class="options-grid" id="optionsGrid"></div>
+
+        <!-- Quiz Navigation Buttons (Skip + Back + Next/Submit) -->
+        <div class="quiz-nav-row">
+          <button class="quiz-back-btn hidden" id="quizBackBtn">← Back</button>
+          <button class="skip-btn" id="skipBtn">Skip →</button>
+          <button class="next-btn hidden" id="nextBtn">Next →</button>
+          <button class="submit-btn hidden" id="submitBtn">✅ Submit</button>
+        </div>
+
+        <!-- Pause Overlay -->
+        <div class="pause-overlay hidden" id="pauseOverlay">
+          <div class="pause-card">
+            <div class="pause-icon">⏸</div>
+            <div class="pause-text" id="pauseText">Quiz Paused</div>
+            <button class="resume-btn" id="resumeBtn">▶ Resume</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 7: RESULT SCREEN ===== -->
+    <section id="resultScreen" class="screen">
+      <div class="screen-card result-card">
+        <h2 class="result-title" id="resultTitle">Quiz Complete!</h2>
+        <div class="result-score-wrap">
+          <div class="result-score" id="resultScore">8/10</div>
+          <div class="result-percent" id="resultPercent">80%</div>
+        </div>
+        <div class="result-grade" id="resultGrade">🏆 Excellent!</div>
+        <div class="result-stats" id="resultStats"></div>
+        <div class="result-actions">
+          <button class="restart-btn" id="restartBtn">🔄 Play Again</button>
+          <button class="home-btn" id="homeBtn">🏠 Home</button>
+        </div>
+        <!-- Detailed Review Section -->
+        <div class="review-section" id="reviewSection">
+          <h3 class="review-title" id="reviewTitle">📋 Question Review</h3>
+          <div class="review-list" id="reviewList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Translation Loading Overlay -->
+    <div id="translatingOverlay" class="translating-overlay hidden">
+      <div class="translating-card">
+        <div class="translating-spinner"></div>
+        <p class="translating-text" id="translatingText">Translating questions...</p>
+        <p class="translating-progress" id="translatingProgress">0 / 0</p>
+      </div>
+    </div>
+
+  </div><!-- end #app -->
+
+  <!-- Topic Data Files (must load before script.js) -->
+  <script src="topic_html.js"></script>
+  <script src="topic_js.js"></script>
+  <script src="topic_history.js"></script>
+  <script src="topic_gk.js"></script>
+  <script src="topic_python.js"></script>
+  <script src="topic_india.js"></script>
+  <script src="topic_worldhistory.js"></script>
+  <script src="topic_science.js"></script>
+  <script src="topic_math.js"></script>
+  <script src="topic_computer.js"></script>
+  <script src="topic_basics.js"></script>
+  <!-- UI Translations (must load before script.js) -->
+  <script src="ui_translations.js"></script>
+  <!-- Main Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
